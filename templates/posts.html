@@ -1,0 +1,79 @@
+{% extends "base.html" %} {% block content %} {% load static %}
+
+<body class="home">
+
+<div class="main">
+  <div class="main-header">
+    <img src="/static/img/logo-twitterblue.svg" class="head-logo" />
+    <h1>Home</h1>
+  </div>
+
+  
+  <div class="tweet_post">
+    <div class="logo">
+      <img src="{% static 'img/sample-icon.jpg' %}"/>
+    </div>
+
+    <div class="input_area">
+      <form action="/" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="text" name="name" placeholder="Your name" maxlength="14" required/>
+        <textarea name="body" placeholder="What's happening?" maxlength="140" required></textarea>
+        
+        <div class ="bottom_area">
+          <input class="attach_image" name="image" type="file" />
+          <input class="button" type="submit" value="Tweet" />
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <section class="posts">
+    <ul>
+      {% for post in posts %}
+      <li>
+        <img
+          class="menu_icon js-menu-icon"
+          src="{% static 'img/icon-small-menu.svg' %}"
+        />
+
+        <div class="menu">
+          <a href="/delete/{{ post.id }}/">Delete</a>
+        <br>
+          <a href="/edit/{{ post.id }}/">Edit</a>
+        </div>
+
+        <div class="logo">
+          <img src="{% static 'img/sample-icon.jpg' %}" />
+        </div>
+
+        <div class="name_body">
+          <span class="name">{{ post.name }}</span>
+          <span class="datetime">{{ post.created_at }}</span>
+          <p>{{ post.body }}</p>
+          {% if post.image.url %}
+        <img src="{{ post.image.url }}" alt="" />
+        {% endif %}
+        </div>
+
+        <div class="like_heart">
+          <a href="/like/{{ post.id }}"><img src="{% static 'img/icon-heart-gray.svg' %}" /></a>
+          {{ post.likecount }}
+        </div>
+      </li>
+     
+      {% endfor %}
+    </ul>
+  </section>
+
+  <script
+    src="https://code.jquery.com/jquery-3.6.0.js"
+    integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+    crossorigin="anonymous"
+  ></script>
+  <script src="{% static 'js/posts.js' %}"></script>
+
+</section>
+</body>
+
+{% endblock %}
