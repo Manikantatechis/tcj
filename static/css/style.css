@@ -4,13 +4,12 @@ Common
 
 html,
 body {
-  height: 100%;
   font-family: sans-serif;
 }
 
 .main {
   max-width: 600px;
-  height: 100%;
+
   margin: 0 auto;
   border-left: 1px solid #ccc;
   border-right: 1px solid #ccc;
